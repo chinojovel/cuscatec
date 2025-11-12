@@ -1,0 +1,140 @@
+[
+    {
+        "id": 1,
+        "name": "administration.dashboard",
+        "guard_name": "web",
+        "description": "Permiso para acceder al Dashboard"
+    },
+    {
+        "id": 2,
+        "name": "administration.customers",
+        "guard_name": "web",
+        "description": "Permiso para administrar clientes"
+    },
+    {
+        "id": 3,
+        "name": "administration.sellers",
+        "guard_name": "web",
+        "description": "Permiso para administrar vendedores"
+    },
+    {
+        "id": 4,
+        "name": "administration.states",
+        "guard_name": "web",
+        "description": "Permiso para administrar estados"
+    },
+    {
+        "id": 5,
+        "name": "administration.products.index",
+        "guard_name": "web",
+        "description": "Permiso para ver productos"
+    },
+    {
+        "id": 6,
+        "name": "administration.orders",
+        "guard_name": "web",
+        "description": "Permiso para ver órdenes"
+    },
+    {
+        "id": 7,
+        "name": "administration.orders.all",
+        "guard_name": "web",
+        "description": "Permiso para ver todas las órdenes"
+    },
+    {
+        "id": 8,
+        "name": "administration.orders.modified",
+        "guard_name": "web",
+        "description": "Permiso para ver órdenes modificadas"
+    },
+    {
+        "id": 9,
+        "name": "administration.products.sales.index",
+        "guard_name": "web",
+        "description": "Permiso para ver el reporte de ventas de productos"
+    },
+    {
+        "id": 10,
+        "name": "administration.inventory",
+        "guard_name": "web",
+        "description": "Permiso para gestionar inventario"
+    },
+    {
+        "id": 11,
+        "name": "administration.warehouse.upload",
+        "guard_name": "web",
+        "description": "Permiso para cargar existencias"
+    },
+    {
+        "id": 12,
+        "name": "administration.categories",
+        "guard_name": "web",
+        "description": "Permiso para gestionar categorías"
+    },
+    {
+        "id": 13,
+        "name": "administration.suppliers",
+        "guard_name": "web",
+        "description": "Permiso para gestionar proveedores"
+    },
+    {
+        "id": 14,
+        "name": "administration.purchase_orders",
+        "guard_name": "web",
+        "description": "Permiso para gestionar órdenes de compra"
+    },
+    {
+        "id": 15,
+        "name": "administration.coupons",
+        "guard_name": "web",
+        "description": "Permiso para gestionar cupones"
+    },
+    {
+        "id": 16,
+        "name": "orders.totalprice",
+        "guard_name": "web",
+        "description": "Permiso para ver el precio total de una orden"
+    },
+    {
+        "id": 17,
+        "name": "orders.show",
+        "guard_name": "web",
+        "description": "Permiso para ver detalles de una orden"
+    },
+    {
+        "id": 18,
+        "name": "orders.edit",
+        "guard_name": "web",
+        "description": "Permiso para editar una orden"
+    },
+    {
+        "id": 19,
+        "name": "orders.editwarehouse",
+        "guard_name": "web",
+        "description": "Permiso para editar órdenes en bodega"
+    },
+    {
+        "id": 20,
+        "name": "orders.updatestatus",
+        "guard_name": "web",
+        "description": "Permiso para actualizar el estado de pago de una orden"
+    },
+    {
+        "id": 21,
+        "name": "orders.print",
+        "guard_name": "web",
+        "description": "Permiso para imprimir órdenes"
+    },
+    {
+        "id": 22,
+        "name": "orders.tracking",
+        "guard_name": "web",
+        "description": "Permiso para actualizar el estado de tracking de una orden"
+    },
+    {
+        "id": 23,
+        "name": "administration.users",
+        "guard_name": "web",
+        "description": "Permiso para gestionar usuarios"
+    }
+]

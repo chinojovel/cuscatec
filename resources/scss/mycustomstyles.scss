@@ -1,0 +1,49 @@
+$blur-amount: 5px;
+$transition-speed: 0.3s;
+$transition-effect: ease;
+
+.blur-background {
+    filter: blur($blur-amount);
+    transition: filter $transition-speed $transition-effect;
+}
+
+.category-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+
+    .category-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 5px;
+        background-color: #e6706d;
+        color: white;
+        border-radius: 5px;
+        text-decoration: none;
+        text-align: center;
+        white-space: nowrap;
+        border: none;
+    }
+
+    .slick-slide {
+        margin: 0 10px;
+    }
+}
+
+
+
+.cart-count-badge {
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0; /* Posiciona en la parte inferior */
+    right: 0; /* Posiciona en la parte derecha */
+    transform: translate(50%, 50%); /* Ajusta el contador para que se alinee con el borde */
+    color: white;
+    border-radius: 50%;
+}

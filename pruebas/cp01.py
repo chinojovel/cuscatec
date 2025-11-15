@@ -1,10 +1,11 @@
 # ejemplo_selenium_fill_fields.py
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.chrome import ChromeDriverManager  # opcional, facilita el driver
+#from webdriver_manager.chrome import ChromeDriverManager  # opcional, facilita el driver
 from dotenv import load_dotenv
 import os
 import time
@@ -16,9 +17,14 @@ PASSWORD = os.getenv("MY_APP_PASSWORD_ADMIN", "your_password")
 URL = os.getenv("URL_ADMIN_LOGIN", "https://cuscatec.cuscatec.com/login")
 
 # --- INICIALIZAR DRIVER (Chrome) ---
-options = webdriver.ChromeOptions()
+#options = webdriver.ChromeOptions()
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
 # options.add_argument("--headless=new")  # descomenta si quieres modo headless
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+driver = webdriver.Chrome(options=options)
+#driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
 
 try:
     driver.get(URL)  # cambia por la URL real

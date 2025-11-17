@@ -56,3 +56,4 @@ jobs:
           python pruebas/cp05_customer.py
           python pruebas/cp06.py
           python pruebas/cp60.py
+          

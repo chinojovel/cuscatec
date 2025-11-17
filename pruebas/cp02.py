@@ -8,17 +8,28 @@ from webdriver_manager.chrome import ChromeDriverManager  # opcional, facilita e
 from dotenv import load_dotenv
 import os
 import time
-
+from selenium.webdriver.chrome.options import Options
+from mailjet_rest import Client
 # --- CONFIG: obtener credenciales (evitar hardcodear en producción) ---
 load_dotenv()
-EMAIL = os.getenv("MY_APP_EMAIL_ADMIN", "your_email@example.com")
-PASSWORD = os.getenv("MY_APP_PASSWORD_ADMIN", "your_password")
+EMAIL = os.getenv("MY_APP_EMAIL_INCORRECT", "your_email@example.com")
+PASSWORD = os.getenv("MY_APP_PASSWOR_INCORRECT", "your_password")
 URL = os.getenv("URL_ADMIN_LOGIN", "https://cuscatec.cuscatec.com/login")
 
+api_key = os.environ['MJ_APIKEY_PUBLIC']
+api_secret = os.environ['MJ_APIKEY_PRIVATE']
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'hj15001@ues.edu.sv')
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', 'mauricioricaldone14@gmail.com')
+mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 # --- INICIALIZAR DRIVER (Chrome) ---
-options = webdriver.ChromeOptions()
+#options = webdriver.ChromeOptions()
 # options.add_argument("--headless=new")  # descomenta si quieres modo headless
-driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+#driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=options)
+options = Options()
+options.add_argument("--headless=new")
+options.add_argument("--no-sandbox")
+options.add_argument("--disable-dev-shm-usage")
+driver = webdriver.Chrome(options=options)
 
 try:
     driver.get(URL)  # cambia por la URL real
@@ -55,7 +66,71 @@ try:
         password_input.send_keys(Keys.RETURN)
 
     # espera corta para ver resultado (en pruebas)
-    time.sleep(100)
+    time.sleep(10)
+
+    # Esperar 10 segundos después del intento de login
+
+    try:
+    # Buscar la etiqueta <strong>
+        strong_tag = wait.until(
+        EC.presence_of_element_located((By.TAG_NAME, "strong"))
+    )
+
+        strong_text = strong_tag.text.strip()
+        print(f"Texto encontrado dentro de <strong>: '{strong_text}'")
+
+    # Verificar si coincide con el texto de error
+        if strong_text == "These credentials do not match our records.":
+            data = {
+                'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
+						"TextPart": "La prueba CP02 ha sido exitosa!",
+						"HTMLPart": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas!"
+				}
+		    ]
+    }
+            print("✗✘✘ Credenciales incorrectas detectadas.")
+        else:
+            data = {
+                'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
+						"TextPart": "La prueba CP02 ha sido exitosa!",
+						"HTMLPart": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas HA FALLADO!"
+				}
+		    ]
+    }
+            print("✓✓✓ No se detectó el mensaje de error de credenciales.")
+
+    except Exception as e:
+        print("✘✘✘ No se encontró ninguna etiqueta <strong> después del login.")
+        print("Detalle:", e)
+
+    result = mailjet.send.create(data=data)
+    print(result.status_code)
+    print(result.json())
+
 
 finally:
     driver.quit()

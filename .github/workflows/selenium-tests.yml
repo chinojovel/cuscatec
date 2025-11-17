@@ -50,6 +50,9 @@ jobs:
       - name: Ejecutar pruebas Selenium
         run: |
           python pruebas/cp01.py
-          # Si necesitas ejecutar otros scripts:
-          # python pruebas/cp02.py
-          # python pruebas/cp03.py
+          python pruebas/cp02.py
+          python pruebas/cp05_seller.py
+          python pruebas/cp05_admin.py
+          python pruebas/cp05_customer.py
+          python pruebas/cp06.py
+          python pruebas/cp60.py

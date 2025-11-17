@@ -9,12 +9,19 @@ from selenium.webdriver.support import expected_conditions as EC
 from dotenv import load_dotenv
 import os
 import time
+from mailjet_rest import Client
 
 # --- CONFIG: obtener credenciales (evitar hardcodear en producción) ---
 load_dotenv()
 EMAIL = os.getenv("MY_APP_EMAIL_ADMIN", "your_email@example.com")
 PASSWORD = os.getenv("MY_APP_PASSWORD_ADMIN", "your_password")
 URL = os.getenv("URL_ADMIN_LOGIN", "https://cuscatec.cuscatec.com/login")
+
+api_key = os.environ['MJ_APIKEY_PUBLIC']
+api_secret = os.environ['MJ_APIKEY_PRIVATE']
+SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'hj15001@ues.edu.sv')
+RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', 'mauricioricaldone14@gmail.com')
+mailjet = Client(auth=(api_key, api_secret), version='v3.1')
 
 # --- INICIALIZAR DRIVER (Chrome) ---
 #options = webdriver.ChromeOptions()
@@ -61,20 +68,40 @@ try:
         password_input.send_keys(Keys.RETURN)
 
     # espera corta para ver resultado (en pruebas)
+    # ------------------------ BUSQUEDA DE WELCOME! ------------------------
+    # Esperar 20 segundos
+    # Esperar 20 segundos
+    time.sleep(20)
 
-    from mailjet_rest import Client
-    import os
-    api_key = os.environ['MJ_APIKEY_PUBLIC']
-    api_secret = os.environ['MJ_APIKEY_PRIVATE']
-    SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'hj15001@ues.edu.sv')
-    RECIPIENT_EMAIL = os.environ.get('RECIPIENT_EMAIL', 'mauricioricaldone14@gmail.com')
-    mailjet = Client(auth=(api_key, api_secret), version='v3.1')
-    data = {
-    'Messages': [
+    # Esperar 20 segundos antes de validar el h4
+
+    try:
+    # 1) Esperar a que aparezca el div contenedor
+        container = wait.until(
+        EC.presence_of_element_located(
+            (
+                By.CSS_SELECTOR,
+                "div.page-title-box.d-sm-flex.align-items-center.justify-content-between"
+            )
+        )
+    )
+
+        # 2) Buscar el h4 dentro del contenedor
+        h4_element = container.find_element(By.TAG_NAME, "h4")
+
+        # 3) Extraer su texto
+        h4_text = h4_element.text.strip()
+        print(f"Texto capturado del h4: '{h4_text}'")
+
+    # 4) Validación opcional
+        if h4_text == "Welcome !":
+            print("✓✓✓ El h4 contiene exactamente 'Welcome !'")
+            data = {
+                'Messages': [
 				{
 						"From": {
 								"Email": SENDER_EMAIL,
-								"Name": "Me"
+								"Name": "CUSCATEC TEST"
 						},
 						"To": [
 								{
@@ -82,16 +109,46 @@ try:
 										"Name": "You"
 								}
 						],
-						"Subject": "My first Mailjet Email!",
-						"TextPart": "Greetings from Mailjet!",
-						"HTMLPart": "<h3>Dear passenger 1, welcome to <a href=\"https://www.mailjet.com/\">Mailjet</a>!</h3><br />May the delivery force be with you!"
+						"Subject": "CP01 - Verificar que el sistema permita acceso con credenciales válidas",
+						"TextPart": "La prueba CP01 ha sido exitosa!",
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente!"
 				}
 		    ]
     }
+        else:
+            data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP01 - Verificar que el sistema permita acceso con credenciales válidas",
+						"TextPart": "La prueba CP01 FALLO!",
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO!"
+				}
+		    ]
+    }
+            print("✘✘✘ El h4 NO contiene 'Welcome !'")
+
+    except Exception as e:
+        print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
+        print("Detalles:", e)
+
+    # ----------------------------------------------------------------------
+
+
+
     result = mailjet.send.create(data=data)
     print(result.status_code)
     print(result.json())
-    time.sleep(100)
+
 
 finally:
     driver.quit()

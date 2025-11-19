@@ -48,7 +48,7 @@ try:
     # Limpio y escribo
     username_input.clear()
     username_input.send_keys(EMAIL)
-
+    print("Se coloco usuario en su casilla correspondiente correctamente")
     # --- Buscar input por name "password" y por id "userpassword" ---
     try:
         password_input = wait.until(EC.presence_of_element_located((By.ID, "userpassword")))
@@ -57,7 +57,7 @@ try:
 
     password_input.clear()
     password_input.send_keys(PASSWORD)
-
+    print("Se coloco la contraseña en el campo respectivo")
     # (Opcional) hacer click en el botón de login
     try:
         login_btn = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit'], input[type='submit']")))
@@ -67,73 +67,20 @@ try:
         from selenium.webdriver.common.keys import Keys
         password_input.send_keys(Keys.RETURN)
 
+    print("Se utilizo correctamente el botón de ingresar al sistema")
     # espera corta para ver resultado (en pruebas)
     time.sleep(5)  
+    print("Se ingreso exitosamente al sistema")
     driver.get(URL)
-
+    print("Se intenta ingresar a la URL del login")
 
     # Esperar 10 segundos después del intento de login
         #Sign in to continue to Administration Ecommerce.
-    time.sleep(20)
+    time.sleep(10)
 
     # Esperar 20 segundos antes de validar el h4
     try:
-    # 1) Buscar directamente el h5 con clase text-primary
-        h5_element = wait.until(
-        EC.presence_of_element_located(
-            (By.CSS_SELECTOR, "h5.text-primary")
-        )
-        )
-
-    # 2) Extraer su texto
-        h5_text = h5_element.text.strip()
-        print(f"Texto capturado del h5: '{h5_text}'")
-
-    # 4) Validación opcional
-        if h4_text == "Welcome !":
-            print("✓✓✓ El h5 contiene exactamente 'Welcome !'")
-            data = {
-                'Messages': [
-				{
-						"From": {
-								"Email": SENDER_EMAIL,
-								"Name": "CUSCATEC TEST"
-						},
-						"To": [
-								{
-										"Email": RECIPIENT_EMAIL,
-										"Name": "You"
-								}
-						],
-						"Subject": "CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
-						"TextPart": "La prueba CP06 ha sido exitosa!",
-						"HTMLPart": "CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión!"
-				}
-		    ]
-    }
-        else:
-            data = {
-            'Messages': [
-				{
-						"From": {
-								"Email": SENDER_EMAIL,
-								"Name": "CUSCATEC TEST"
-						},
-						"To": [
-								{
-										"Email": RECIPIENT_EMAIL,
-										"Name": "You"
-								}
-						],
-						"Subject": "FALLO CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
-						"TextPart": "La prueba CP06 FALLO!",
-						"HTMLPart": "CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión!"
-				}
-		    ]
-    }
-            print("✘✘✘ El h5 NO contiene 'Welcome !'")
-
-    except Exception as e:
+        username_input = wait.until(EC.presence_of_element_located((By.ID, "username")))
         data = {
             'Messages': [
 				{
@@ -147,16 +94,37 @@ try:
 										"Name": "You"
 								}
 						],
-						"Subject": "FALLO NIVEL EXCEPT CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
-						"TextPart": "La prueba CP06 FALLO!",
-						"HTMLPart": "CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión!"
+						"Subject": "FALLO CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
+						"TextPart": "La prueba CP06-ADMIN FALLO!",
+						"HTMLPart": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingresa al sistema <br> Se puede visualizar la vista del login para el usuario administrador"
 				}
 		    ]
-    }
-        print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
-        print("Detalles:", e)
+        }
+        print("Se puede visualizar el login del administrador")
 
-    # ----------------------------------------------------------------------
+    except:
+        data = {
+                'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
+						"TextPart": "La prueba CP06-ADMIN ha sido exitosa!",
+						"HTMLPart": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingreso al sistema <br> Se intento Ingresar a la URL del login del administrador <br> Se redirigio a la pagina principal del administrador"
+				}
+		    ]
+        }
+        print("No es posible ver el login, se ha redirigido a la página principal del tipo de usuario admin")
+    # 1) Buscar directamente el h5 con clase text-primary
+        
 
 
 

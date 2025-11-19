@@ -15,6 +15,7 @@ load_dotenv()
 EMAIL = os.getenv("MY_APP_EMAIL_SELLER", "your_email@example.com")
 PASSWORD = os.getenv("MY_APP_PASSWORD_SELLER", "your_password")
 URL = os.getenv("URL_SELLER_LOGIN", "https://cuscatec.cuscatec.com/ecommerce/seller/login")
+
 api_key = os.environ['MJ_APIKEY_PUBLIC']
 api_secret = os.environ['MJ_APIKEY_PRIVATE']
 SENDER_EMAIL = os.environ.get('SENDER_EMAIL', 'hj15001@ues.edu.sv')
@@ -46,7 +47,7 @@ try:
     # Limpio y escribo
     username_input.clear()
     username_input.send_keys(EMAIL)
-
+    print("Se coloco el usuario no registrado en la base en la casilla user correctamente")
     # --- Buscar input por name "password" y por id "userpassword" ---
     try:
         password_input = wait.until(EC.presence_of_element_located((By.ID, "userpassword")))
@@ -55,6 +56,7 @@ try:
 
     password_input.clear()
     password_input.send_keys(PASSWORD)
+    print("Se coloco la contraseña en el campo respectivo")
 
     # (Opcional) hacer click en el botón de login
     try:
@@ -64,9 +66,10 @@ try:
         # Si no hay botón submit, enviar ENTER desde el campo password
         from selenium.webdriver.common.keys import Keys
         password_input.send_keys(Keys.RETURN)
-
+    
+    print("Se utilizo correctamente el botón de ingresar al sistema")
     # espera corta para ver resultado (en pruebas)
-    time.sleep(20)
+    time.sleep(10)
 
     # Esperar 20 segundos antes de validar el h4
 
@@ -86,7 +89,7 @@ try:
 
         # 3) Extraer su texto
         h4_text = h4_element.text.strip()
-        print(f"Texto capturado del h4: '{h4_text}'")
+        print(f"Texto capturado para el usuario tipo seller: '{h4_text}'")
 
     # 4) Validación opcional
         if h4_text == "Categories":
@@ -106,7 +109,7 @@ try:
 						],
 						"Subject": "CP05-SELLER - Validar enrutamiento según tipo de usuario",
 						"TextPart": "La prueba CP05-seller ha sido exitosa!",
-						"HTMLPart": "CP05-seller - Validar enrutamiento según tipo de usuario  Ha concluido exitosamente!"
+						"HTMLPart": f"CP05-seller - Validar enrutamiento según tipo de usuario  Ha concluido exitosamente! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado para el tipo usuario seller: '{h4_text}'"
 				}
 		    ]
     }

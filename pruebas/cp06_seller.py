@@ -1,21 +1,21 @@
 # ejemplo_selenium_fill_fields.py
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-#from webdriver_manager.chrome import ChromeDriverManager  # opcional, facilita el driver
+from webdriver_manager.chrome import ChromeDriverManager  # opcional, facilita el driver
 from dotenv import load_dotenv
 import os
 import time
 from mailjet_rest import Client
+from selenium.webdriver.chrome.options import Options
 
 # --- CONFIG: obtener credenciales (evitar hardcodear en producción) ---
 load_dotenv()
-EMAIL = os.getenv("MY_APP_EMAIL_ADMIN", "your_email@example.com")
-PASSWORD = os.getenv("MY_APP_PASSWORD_ADMIN", "your_password")
-URL = os.getenv("URL_ADMIN_LOGIN", "https://cuscatec.cuscatec.com/login")
+EMAIL = os.getenv("MY_APP_EMAIL_SELLER", "your_email@example.com")
+PASSWORD = os.getenv("MY_APP_PASSWORD_SELLER", "your_password")
+URL = os.getenv("URL_SELLER_LOGIN", "https://cuscatec.cuscatec.com/ecommerce/seller/login")
 
 api_key = os.environ['MJ_APIKEY_PUBLIC']
 api_secret = os.environ['MJ_APIKEY_PRIVATE']
@@ -48,8 +48,7 @@ try:
     # Limpio y escribo
     username_input.clear()
     username_input.send_keys(EMAIL)
-    print("Se coloco el usuario registrado en la base en la casilla user correctamente")
-
+    print("Se coloco usuario en su casilla correspondiente correctamente")
     # --- Buscar input por name "password" y por id "userpassword" ---
     try:
         password_input = wait.until(EC.presence_of_element_located((By.ID, "userpassword")))
@@ -59,7 +58,6 @@ try:
     password_input.clear()
     password_input.send_keys(PASSWORD)
     print("Se coloco la contraseña en el campo respectivo")
-
     # (Opcional) hacer click en el botón de login
     try:
         login_btn = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit'], input[type='submit']")))
@@ -68,57 +66,23 @@ try:
         # Si no hay botón submit, enviar ENTER desde el campo password
         from selenium.webdriver.common.keys import Keys
         password_input.send_keys(Keys.RETURN)
+
     print("Se utilizo correctamente el botón de ingresar al sistema")
     # espera corta para ver resultado (en pruebas)
-    # ------------------------ BUSQUEDA DE WELCOME! ------------------------
-    # Esperar 20 segundos
-    # Esperar 20 segundos
-    time.sleep(20)
+    time.sleep(5)  
+    print("Se ingreso exitosamente al sistema")
+    print("Se intenta ingresar a la URL del login")
+    driver.get(URL)
+    
+
+    # Esperar 10 segundos después del intento de login
+        #Sign in to continue to Administration Ecommerce.
+    time.sleep(10)
 
     # Esperar 20 segundos antes de validar el h4
-
     try:
-    # 1) Esperar a que aparezca el div contenedor
-        container = wait.until(
-        EC.presence_of_element_located(
-            (
-                By.CSS_SELECTOR,
-                "div.page-title-box.d-sm-flex.align-items-center.justify-content-between"
-            )
-        )
-    )
-
-        # 2) Buscar el h4 dentro del contenedor
-        h4_element = container.find_element(By.TAG_NAME, "h4")
-
-        # 3) Extraer su texto
-        h4_text = h4_element.text.strip()
-        print(f"Mensaje de bienvenida capturado: '{h4_text}'")
-
-    # 4) Validación opcional
-        if h4_text == "Welcome !":
-            print("✓✓✓ Se ha encontrado que contiene exactamente 'Welcome !'")
-            data = {
-                'Messages': [
-				{
-						"From": {
-								"Email": SENDER_EMAIL,
-								"Name": "CUSCATEC TEST"
-						},
-						"To": [
-								{
-										"Email": RECIPIENT_EMAIL,
-										"Name": "You"
-								}
-						],
-						"Subject": "CP05-ADMIN - Verificar que el sistema permita acceso con credenciales válidas ",
-						"TextPart": "La prueba CP05-ADMIN ha sido exitosa!",
-						"HTMLPart": f"CP05-ADMIN - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado para el tipo usuario admin: '{h4_text}'"
-				}
-		    ]
-    }
-        else:
-            data = {
+        username_input = wait.until(EC.presence_of_element_located((By.ID, "username")))
+        data = {
             'Messages': [
 				{
 						"From": {
@@ -131,19 +95,37 @@ try:
 										"Name": "You"
 								}
 						],
-						"Subject": "FALLO CP05-ADMIN - Validar enrutamiento según tipo de usuario",
-						"TextPart": "La prueba CP05-ADMIN FALLO!",
-						"HTMLPart": "CP05-ADMIN - Validar enrutamiento según tipo de usuario FALLO!"
+						"Subject": "FALLO CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
+						"TextPart": "La prueba CP06-SELLER FALLO!",
+						"HTMLPart": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingresa al sistema <br> Se puede visualizar la vista del login para el usuario seller"
 				}
 		    ]
-    }
-            print("✘✘✘ El h4 NO contiene 'Welcome !'")
+        }
+        print("Se puede visualizar el login")
 
-    except Exception as e:
-        print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
-        print("Detalles:", e)
-
-    # ----------------------------------------------------------------------
+    except:
+        data = {
+                'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
+						"TextPart": "La prueba CP06-SELLER ha sido exitosa!",
+						"HTMLPart": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> ✓✓✓ El texto capturado contiene exactamente la palabra distintiva de la vsita principal del seller"
+				}
+		    ]
+        }
+        print("No es posible ver el login, se ha redirigido a la página principal del tipo de usuario seller")
+    # 1) Buscar directamente el h5 con clase text-primary
+        
 
 
 

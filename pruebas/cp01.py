@@ -49,6 +49,8 @@ try:
     username_input.clear()
     username_input.send_keys(EMAIL)
 
+    print("Se coloco usuario en su casilla correspondiente correctamente")
+
     # --- Buscar input por name "password" y por id "userpassword" ---
     try:
         password_input = wait.until(EC.presence_of_element_located((By.ID, "userpassword")))
@@ -57,6 +59,7 @@ try:
 
     password_input.clear()
     password_input.send_keys(PASSWORD)
+    print("Se coloco la contraseña en el campo respectivo")
 
     # (Opcional) hacer click en el botón de login
     try:
@@ -67,6 +70,7 @@ try:
         from selenium.webdriver.common.keys import Keys
         password_input.send_keys(Keys.RETURN)
 
+    print("Se utilizo correctamente el botón de ingresar al sistema")
     # espera corta para ver resultado (en pruebas)
     # ------------------------ BUSQUEDA DE WELCOME! ------------------------
     # Esperar 20 segundos
@@ -91,11 +95,11 @@ try:
 
         # 3) Extraer su texto
         h4_text = h4_element.text.strip()
-        print(f"Texto capturado del h4: '{h4_text}'")
+        print(f"Texto capturado de bienvenida al sistema: '{h4_text}'")
 
     # 4) Validación opcional
         if h4_text == "Welcome !":
-            print("✓✓✓ El h4 contiene exactamente 'Welcome !'")
+            print("✓✓✓ El texto capturado contiene exactamente 'Welcome !'")
             data = {
                 'Messages': [
 				{
@@ -111,7 +115,7 @@ try:
 						],
 						"Subject": "CP01 - Verificar que el sistema permita acceso con credenciales válidas",
 						"TextPart": "La prueba CP01 ha sido exitosa!",
-						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente!"
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> ✓✓✓ El texto capturado contiene exactamente 'Welcome ! '"
 				}
 		    ]
     }

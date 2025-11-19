@@ -46,7 +46,7 @@ try:
     # Limpio y escribo
     username_input.clear()
     username_input.send_keys(EMAIL)
-
+    print("Se coloco el usuario no registrado en la base en la casilla user correctamente")
     # --- Buscar input por name "password" y por id "userpassword" ---
     try:
         password_input = wait.until(EC.presence_of_element_located((By.ID, "userpassword")))
@@ -55,7 +55,7 @@ try:
 
     password_input.clear()
     password_input.send_keys(PASSWORD)
-
+    print("Se coloco la contraseña en el campo respectivo")
     # (Opcional) hacer click en el botón de login
     try:
         login_btn = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, "button[type='submit'], input[type='submit']")))
@@ -64,7 +64,7 @@ try:
         # Si no hay botón submit, enviar ENTER desde el campo password
         from selenium.webdriver.common.keys import Keys
         password_input.send_keys(Keys.RETURN)
-
+    print("Se utilizo correctamente el botón de ingresar al sistema")
     # espera corta para ver resultado (en pruebas)
     time.sleep(10)
 
@@ -96,7 +96,7 @@ try:
 						],
 						"Subject": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
 						"TextPart": "La prueba CP02 ha sido exitosa!",
-						"HTMLPart": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas!"
+						"HTMLPart": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado dentro de <strong>: '{strong_text}'"
 				}
 		    ]
     }

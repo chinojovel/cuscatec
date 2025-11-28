@@ -57,6 +57,5 @@ jobs:
           python pruebas/cp06_seller.py
           python pruebas/cp06_admin.py
           python pruebas/cp06_customer.py
-          python pruebas/cp06.py
           python pruebas/cp60.py
           

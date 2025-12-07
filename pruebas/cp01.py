@@ -135,7 +135,7 @@ try:
 						],
 						"Subject": "FALLO CP01 - Verificar que el sistema permita acceso con credenciales válidas",
 						"TextPart": "La prueba CP01 FALLO!",
-						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO no ha encontrado "Welcome!" en el apartado h4 ! Revisar en cuscatec/pruebas/cp01.py linea 94"
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO no ha encontrado 'Welcome!' en el apartado h4 ! Revisar en cuscatec/pruebas/cp01.py linea 94"
 				}
 		    ]
     }

@@ -115,7 +115,7 @@ try:
 						],
 						"Subject": "CP01 - Verificar que el sistema permita acceso con credenciales válidas",
 						"TextPart": "La prueba CP01 ha sido exitosa!",
-						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> ✓✓✓ El texto capturado contiene exactamente 'Welcome ! '"
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente! <br> <b> PASO 1 </b> Se coloco usuario en su casilla correspondiente correctamente <br> <b> PASO 2 </b> Se coloco la contraseña en el campo respectivo <br> <b> PASO 3 </b>El texto capturado contiene exactamente 'Welcome ! ' ✓✓✓ "
 				}
 		    ]
     }
@@ -135,13 +135,32 @@ try:
 						],
 						"Subject": "FALLO CP01 - Verificar que el sistema permita acceso con credenciales válidas",
 						"TextPart": "La prueba CP01 FALLO!",
-						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO!"
+						"HTMLPart": "CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO no ha encontrado "Welcome!" en el apartado h4 ! Revisar en cuscatec/pruebas/cp01.py linea 94"
 				}
 		    ]
     }
             print("✘✘✘ El h4 NO contiene 'Welcome !'")
 
     except Exception as e:
+        data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP01 - Verificar que el sistema permita acceso con credenciales válidas",
+						"TextPart": "La prueba CP01 FALLO!",
+						"HTMLPart": f"CP01 - Verificar que el sistema permita acceso con credenciales válidas Ha FALLADO! Revisar en cuscatec/pruebas/cp01.py {e}"
+				}
+		    ]
+    }
         print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
         print("Detalles:", e)
 

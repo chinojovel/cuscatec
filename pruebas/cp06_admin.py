@@ -102,7 +102,7 @@ try:
         }
         print("Se puede visualizar el login del administrador")
 
-    except:
+    except Exception as e:
         data = {
                 'Messages': [
 				{

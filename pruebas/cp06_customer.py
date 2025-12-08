@@ -103,7 +103,7 @@ try:
         }
         print("Se puede visualizar el login para el tipo de usuario customer")
 
-    except:
+    except Exception as e:
         data = {
                 'Messages': [
 				{

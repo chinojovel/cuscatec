@@ -103,7 +103,7 @@ try:
         }
         print("Se puede visualizar el login")
 
-    except:
+    except Exception as e:
         data = {
                 'Messages': [
 				{

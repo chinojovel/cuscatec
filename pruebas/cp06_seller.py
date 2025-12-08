@@ -97,7 +97,7 @@ try:
 						],
 						"Subject": "FALLO CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
 						"TextPart": "La prueba CP06-SELLER FALLO!",
-						"HTMLPart": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingresa al sistema <br> Se puede visualizar la vista del login para el usuario seller"
+						"HTMLPart": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br>Paso 1: Se coloco usuario en su casilla correspondiente correctamente <br> Paso 2: Se coloco la contraseña en el campo respectivo <br> Paso 3: Se ingresa al sistema <br> Paso 4: Se puede visualizar la vista del login para el usuario seller verificar cuscatec/pruebas/cp06_seller.py linea 75"
 				}
 		    ]
         }
@@ -119,7 +119,7 @@ try:
 						],
 						"Subject": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
 						"TextPart": "La prueba CP06-SELLER ha sido exitosa!",
-						"HTMLPart": "CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> ✓✓✓ El texto capturado contiene exactamente la palabra distintiva de la vsita principal del seller"
+						"HTMLPart": f"CP06-SELLER - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! {e}"
 				}
 		    ]
         }

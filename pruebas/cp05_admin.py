@@ -111,9 +111,9 @@ try:
 										"Name": "You"
 								}
 						],
-						"Subject": "CP05-ADMIN - Verificar que el sistema permita acceso con credenciales válidas ",
+						"Subject": "CP05-ADMIN - Validar enrutamiento según tipo de usuario ",
 						"TextPart": "La prueba CP05-ADMIN ha sido exitosa!",
-						"HTMLPart": f"CP05-ADMIN - Verificar que el sistema permita acceso con credenciales válidas Ha concluido exitosamente! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado para el tipo usuario admin: '{h4_text}'"
+						"HTMLPart": f"CP05-ADMIN - Validar enrutamiento según tipo de usuario! <br>PASO 1: Se coloco el usuario no registrado en la base en la casilla user correctamente <br> PASO 2: Se coloco la contraseña en el campo respectivo <br> PASO 3: Se utilizo correctamente el botón de ingresar al sistema <br> PASO 4: Texto encontrado para el tipo usuario admin: '{h4_text}'"
 				}
 		    ]
     }
@@ -133,13 +133,32 @@ try:
 						],
 						"Subject": "FALLO CP05-ADMIN - Validar enrutamiento según tipo de usuario",
 						"TextPart": "La prueba CP05-ADMIN FALLO!",
-						"HTMLPart": "CP05-ADMIN - Validar enrutamiento según tipo de usuario FALLO!"
+						"HTMLPart": "CP05-ADMIN - Validar enrutamiento según tipo de usuario FALLO! no ha encontrado la etiqueta <h4> con el texto 'Welcome !' en el apartado div! Revisar en cuscatec/pruebas/cp05.py linea 92"
 				}
 		    ]
     }
             print("✘✘✘ El h4 NO contiene 'Welcome !'")
 
     except Exception as e:
+        data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO NIVEL EXCEPT CP05 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos",
+						"TextPart": "La prueba CP05 FALLO!",
+						"HTMLPart": f"FALLO CP05 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos HA FALLADO! {e}"
+				}
+		    ]
+    }
         print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
         print("Detalles:", e)
 

@@ -156,6 +156,25 @@ try:
             print("✘✘✘ El h4 NO contiene 'Welcome !'")
 
     except Exception as e:
+        data = {
+                'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "CP60 - Evaluar si la opción “recordarme” conserva sesiones de forma segura",
+						"TextPart": "La prueba CP60 ha sido exitosa!",
+						"HTMLPart": f"CP60 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! {e}"
+				}
+		    ]
+        }
         print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
         print("Detalles:", e)
 

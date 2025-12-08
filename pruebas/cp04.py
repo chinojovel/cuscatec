@@ -238,7 +238,7 @@ try:
 						],
 						"Subject": "FALLO CP04 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos",
 						"TextPart": "La prueba CP04 ha fallado!",
-						"HTMLPart": f"FALLO CP04 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos HA FALLADO! <br> Intentos realizados por ingresar: 5 <br> Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado dentro de <strong>: '{strong_text}' <br>Nunca se bloqueo el usuario"
+						"HTMLPart": f"FALLO CP04 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos HA FALLADO! <br> Intentos realizados por ingresar: 5 <br> Paso 1: Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Paso 2: Se coloco la contraseña en el campo respectivo <br> Paso 3: Se utilizo correctamente el botón de ingresar al sistema <br> Paso 4: Texto encontrado dentro de <strong>: '{strong_text}' <br>Nunca se bloqueo el usuario"
 				}
 		    ]
     }
@@ -257,9 +257,9 @@ try:
 										"Name": "You"
 								}
 						],
-						"Subject": "FALLO NIVEL EXCEPT CP04 - No se bloqueo el usuario",
+						"Subject": "FALLO NIVEL EXCEPT CP04 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos",
 						"TextPart": "La prueba CP04 FALLO!",
-						"HTMLPart": "CP06 - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión!"
+						"HTMLPart": f"FALLO CP04 - Verifica que la cuenta sea bloqueada luego de varios intentos fallidos HA FALLADO! {e}"
 				}
 		    ]
     }

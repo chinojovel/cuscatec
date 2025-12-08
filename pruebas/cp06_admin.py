@@ -96,7 +96,7 @@ try:
 						],
 						"Subject": "FALLO CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
 						"TextPart": "La prueba CP06-ADMIN FALLO!",
-						"HTMLPart": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingresa al sistema <br> Se puede visualizar la vista del login para el usuario administrador"
+						"HTMLPart": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Paso 1: Se coloco usuario en su casilla correspondiente correctamente <br> Paso 2: Se coloco la contraseña en el campo respectivo <br> Paso 3: Se ingresa al sistema <br> Paso 4: Se puede visualizar la vista del login para el usuario administrador verificar cuscatec/pruebas/cp06_admin.py linea 74"
 				}
 		    ]
         }
@@ -118,7 +118,7 @@ try:
 						],
 						"Subject": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
 						"TextPart": "La prueba CP06-ADMIN ha sido exitosa!",
-						"HTMLPart": "CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! <br> Se coloco usuario en su casilla correspondiente correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se ingreso al sistema <br> Se intento Ingresar a la URL del login del administrador <br> Se redirigio a la pagina principal del administrador"
+						"HTMLPart": f"CP06-ADMIN - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión! {e}"
 				}
 		    ]
         }

@@ -96,7 +96,7 @@ try:
 						],
 						"Subject": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
 						"TextPart": "La prueba CP02 ha sido exitosa!",
-						"HTMLPart": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado dentro de <strong>: '{strong_text}'"
+						"HTMLPart": "EXITO CP02 - Verificar que el sistema muestre error con credenciales inválidas! <br>Paso 1: Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Paso 2: Se coloco la contraseña en el campo respectivo <br> Paso 3: Se utilizo correctamente el botón de ingresar al sistema <br> Paso 4: Texto encontrado dentro de <strong>: '{strong_text}'"
 				}
 		    ]
     }
@@ -117,13 +117,32 @@ try:
 						],
 						"Subject": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
 						"TextPart": "La prueba CP02 ha sido exitosa!",
-						"HTMLPart": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas HA FALLADO!"
+						"HTMLPart": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas HA FALLADO! no ha encontrado la etiqueta <strong> con el texto 'These credentials do not match our records.' en el apartado h4 ! Revisar en cuscatec/pruebas/cp02.py linea 94"
 				}
 		    ]
     }
             print("✓✓✓ No se detectó el mensaje de error de credenciales.")
 
     except Exception as e:
+        data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP02 - Verificar que el sistema muestre error con credenciales inválidas",
+						"TextPart": "La prueba CP02 FALLO!",
+						"HTMLPart": f"CP02 - Verificar que el sistema muestre error con credenciales inválidas Ha FALLADO {e}"
+				}
+		    ]
+        }
         print("✘✘✘ No se encontró ninguna etiqueta <strong> después del login.")
         print("Detalle:", e)
 

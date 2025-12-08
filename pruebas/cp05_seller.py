@@ -109,7 +109,7 @@ try:
 						],
 						"Subject": "CP05-SELLER - Validar enrutamiento según tipo de usuario",
 						"TextPart": "La prueba CP05-seller ha sido exitosa!",
-						"HTMLPart": f"CP05-seller - Validar enrutamiento según tipo de usuario  Ha concluido exitosamente! <br>Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Se coloco la contraseña en el campo respectivo <br> Se utilizo correctamente el botón de ingresar al sistema <br> Texto encontrado para el tipo usuario seller: '{h4_text}'"
+						"HTMLPart": f"CP05-seller - Validar enrutamiento según tipo de usuario  Ha concluido exitosamente! <br>Paso 1: Se coloco el usuario no registrado en la base en la casilla user correctamente <br> Paso 2: Se coloco la contraseña en el campo respectivo <br> Paso 3: Se utilizo correctamente el botón de ingresar al sistema <br> Paso 4: Texto encontrado para el tipo usuario seller: '{h4_text}'"
 				}
 		    ]
     }
@@ -129,13 +129,32 @@ try:
 						],
 						"Subject": "FALLO CP05-SELLER - Validar enrutamiento según tipo de usuario",
 						"TextPart": "La prueba CP05-Seller FALLO!",
-						"HTMLPart": "CP05-SELLER - Validar enrutamiento según tipo de usuario Ha FALLADO!"
+						"HTMLPart": "CP05-SELLER - Validar enrutamiento según tipo de usuario Ha FALLADO! no ha encontrado la etiqueta <h4> con el texto 'Categories' en el apartado div! Revisar en cuscatec/pruebas/cp05_seller.py linea 95"
 				}
 		    ]
     }
             print("✘✘✘ El h4 NO contiene 'Welcome !'")
 
     except Exception as e:
+        data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP05-SELLER - Validar enrutamiento según tipo de usuario",
+						"TextPart": "La prueba CP05 FALLO!",
+						"HTMLPart": f"FALLO CP05-SELLER - Validar enrutamiento según tipo de usuario Ha FALLADO {e}"
+				}
+		    ]
+        }
         print("✗ ERROR: No se pudo capturar el h4 dentro del div especificado")
         print("Detalles:", e)
 

@@ -133,6 +133,29 @@ try:
     print(result.status_code)
     print(result.json())
 
+except Exception as e:
+        data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP06-CUSTOMER NIVEL EXCEPT - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión",
+						"TextPart": "La prueba CP06-CUSTOMER FALLO!",
+						"HTMLPart": f"FALLO CP06-CUSTOMER NIVEL EXCEPT - Una vez logueado en el sistema no debe poder ver ningún login hasta cerrar sesión Ha FALLADO {e}"
+				}
+		    ]
+        }
+    result = mailjet.send.create(data=data)
+    print(result.status_code)
+    print(result.json())
 
 finally:
     driver.quit()

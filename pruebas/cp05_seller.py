@@ -166,6 +166,29 @@ try:
     print(result.status_code)
     print(result.json())
 
+except Exception as e:
+    data = {
+            'Messages': [
+				{
+						"From": {
+								"Email": SENDER_EMAIL,
+								"Name": "CUSCATEC TEST"
+						},
+						"To": [
+								{
+										"Email": RECIPIENT_EMAIL,
+										"Name": "You"
+								}
+						],
+						"Subject": "FALLO CP05-SELLER NIVEL EXCEPT - Validar enrutamiento según tipo de usuario",
+						"TextPart": "La prueba CP05-SELLER FALLO!",
+						"HTMLPart": f"FALLO CP05-SELLER NIVEL EXCEPT - Validar enrutamiento según tipo de usuario Ha FALLADO {e}"
+				}
+		    ]
+        }
+    result = mailjet.send.create(data=data)
+    print(result.status_code)
+    print(result.json())
 
 finally:
     driver.quit()
